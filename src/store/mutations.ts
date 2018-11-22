@@ -1,4 +1,5 @@
-import {ApplicationState, DataItem} from '@/types';
+import ApplicationState from '@/types/store/applicationState';
+import DataItem from '@/types/store/dataItem';
 
 export default {
 

@@ -1,4 +1,4 @@
-import CategoricalFacet from "@/types/store/categoricalFacet";
+import CategoricalFacet from '@/types/store/categoricalFacet';
 
 export default interface CategoricalFacets {
   collectionPoint: CategoricalFacet;

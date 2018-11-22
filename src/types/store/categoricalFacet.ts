@@ -1,4 +1,4 @@
-import CategoricalFacetOption from "@/types/store/categoricalFacetOption";
+import CategoricalFacetOption from '@/types/store/categoricalFacetOption';
 
 export default interface CategoricalFacet {
   label: string;
