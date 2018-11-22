@@ -43,10 +43,12 @@
     methods: {
       ...mapActions([
         'getDataItems',
+        'getTopics',
       ]),
     },
     mounted() {
       this.getDataItems();
+      this.getTopics();
     },
   });
 </script>
