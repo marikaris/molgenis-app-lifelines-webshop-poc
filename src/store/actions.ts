@@ -1,5 +1,5 @@
 // @ts-ignore
-import api from '@molgenis/molgenis-api-client';
+import api from '@molgenis/molgenis-api-client'
 
 const toDataItem = (item: any) => {
   return {
@@ -11,15 +11,15 @@ const toDataItem = (item: any) => {
     topic: item.topic.id,
     label: item.label,
     ordinalPosition: item.ordinalPosition,
-    description: item.description,
-  };
-};
+    description: item.description
+  }
+}
 
 export default {
 
-  getDataItems({commit}: any) {
+  getDataItems ({ commit }: any) {
     api.get('api/v2/lifelines_dataItems').then((response: any) => {
-      commit('setDataItems', response.items.map(toDataItem));
-    });
-  },
-};
+      commit('setDataItems', response.items.map(toDataItem))
+    })
+  }
+}

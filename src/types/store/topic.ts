@@ -1,5 +1,5 @@
 export default interface Topic {
-  id: string;
-  label: string;
-  parentTopicId?: string;
+  id: string
+  label: string
+  parentTopicId?: string
 }
