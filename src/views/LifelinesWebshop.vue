@@ -1,14 +1,14 @@
 <template>
     <b-container fluid>
         <b-row>
-            <b-column>
-                <FacetOption label=test :active=false></FacetOption>
-            </b-column>
+            <b-col>
+                <FacetOption label="facet option" :active=false></FacetOption>
+            </b-col>
         </b-row>
     </b-container>
 </template>
 
-<script lang="ts">
+<script>
     import Vue from 'vue';
     import FacetOption from '../components/FacetOption.vue';
 
