@@ -30,25 +30,25 @@
 </template>
 
 <script>
-  import Vue from 'vue';
-  import Facet from '../components/Facet.vue';
-  import { mapActions } from 'vuex';
+  import Vue from 'vue'
+  import Facet from '../components/Facet.vue'
+  import { mapActions } from 'vuex'
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
-    components: {Facet},
+    components: { Facet },
     props: {
-      msg: String,
+      msg: String
     },
     methods: {
       ...mapActions([
         'getDataItems',
-        'getTopics',
-      ]),
+        'getTopics'
+      ])
     },
-    mounted() {
-      this.getDataItems();
-      this.getTopics();
+    mounted () {
+      this.getDataItems()
+      this.getTopics()
     },
-  });
+  })
 </script>
