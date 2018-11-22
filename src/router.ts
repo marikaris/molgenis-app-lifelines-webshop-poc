@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import LifelinesWebshop from './views/LifelinesWebshop.vue';
+import Vue from 'vue'
+import Router from 'vue-router'
+import LifelinesWebshop from './views/LifelinesWebshop.vue'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'lifelines-webshop',
-      component: LifelinesWebshop,
-    },
-  ],
-});
+      component: LifelinesWebshop
+    }
+  ]
+})

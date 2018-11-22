@@ -1,4 +1,4 @@
 export default interface CategoricalFacetOption {
-  id: string;
-  label: string;
+  id: string
+  label: string
 }
