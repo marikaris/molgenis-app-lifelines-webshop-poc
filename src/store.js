@@ -1,10 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {ApplicationState} from './types';
-
 Vue.use(Vuex);
-
-const state: ApplicationState = {
+const state = {
     dataItems: [
         {
             id: 'var1',
@@ -27,7 +24,8 @@ const state: ApplicationState = {
             label: 'Country of birth',
             ordinalPosition: 901,
             description: 'Country of birth',
-        }],
+        }
+    ],
     topics: [
         {
             id: 'air-polution',
@@ -91,7 +89,6 @@ const state: ApplicationState = {
             parentTopicId: 'interview',
         },
     ],
-
     categorical_facets: {
         collectionPoint: {
             label: 'Collection point',
@@ -182,16 +179,10 @@ const state: ApplicationState = {
         searchTerm: 'hallo, ik sta in de state',
     },
     selectedDataItems: ['var1'],
-
-
 };
-
 export default new Vuex.Store({
     state,
-    mutations:
-        {}
-    ,
-    actions: {}
-    ,
-})
-;
+    mutations: {},
+    actions: {},
+});
+//# sourceMappingURL=store.js.map
