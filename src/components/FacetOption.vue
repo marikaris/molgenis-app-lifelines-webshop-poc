@@ -30,5 +30,8 @@
 </script>
 
 <style scoped>
-
+    button {
+        margin: 0.2rem;
+        min-width: 8rem;
+    }
 </style>

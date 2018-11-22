@@ -13,17 +13,24 @@
             </b-col>
         </b-row>
         <b-row>
-            <b-col>
-                <Facet :title="this.$store.state.categorical_facets.ageGroup.label" :description="this.$store.state.categorical_facets.ageGroup.description" :options="this.$store.state.categorical_facets.ageGroup.options"></Facet>
-                <Facet :title="this.$store.state.categorical_facets.sexGroup.label" :description="this.$store.state.categorical_facets.sexGroup.description" :options="this.$store.state.categorical_facets.sexGroup.options"></Facet>
-                <Facet :title="this.$store.state.categorical_facets.subCohorts.label" :description="this.$store.state.categorical_facets.subCohorts.description" :options="this.$store.state.categorical_facets.subCohorts.options"></Facet>
-                <Facet :title="this.$store.state.categorical_facets.collectionPoint.label" :description="this.$store.state.categorical_facets.collectionPoint.description" :options="this.$store.state.categorical_facets.collectionPoint.options"></Facet>
-
+            <b-col md="3">
+                <Facet :title="this.$store.state.categorical_facets.ageGroup.label"
+                       :description="this.$store.state.categorical_facets.ageGroup.description"
+                       :options="this.$store.state.categorical_facets.ageGroup.options"></Facet>
+                <Facet :title="this.$store.state.categorical_facets.sexGroup.label"
+                       :description="this.$store.state.categorical_facets.sexGroup.description"
+                       :options="this.$store.state.categorical_facets.sexGroup.options"></Facet>
+                <Facet :title="this.$store.state.categorical_facets.subCohorts.label"
+                       :description="this.$store.state.categorical_facets.subCohorts.description"
+                       :options="this.$store.state.categorical_facets.subCohorts.options"></Facet>
+                <Facet :title="this.$store.state.categorical_facets.collectionPoint.label"
+                       :description="this.$store.state.categorical_facets.collectionPoint.description"
+                       :options="this.$store.state.categorical_facets.collectionPoint.options"></Facet>
             </b-col>
-            <b-col>
+            <b-col md="2">
                Topic Tree
             </b-col>
-            <b-col>
+            <b-col md="7">
                 Data items
             </b-col>
         </b-row>

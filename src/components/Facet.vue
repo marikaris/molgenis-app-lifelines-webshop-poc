@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="facet">
         <b-row>
             <b-col>
                 <h4>{{this.title}}: <small v-if="this.description"><font-awesome-icon icon="question-circle" /></small></h4>
@@ -36,4 +36,7 @@
 </script>
 
 <style scoped>
+    .facet{
+        margin-bottom: 1rem;
+    }
 </style>
