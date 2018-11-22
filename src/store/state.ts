@@ -88,87 +88,11 @@ const state: ApplicationState = {
     }
   ],
 
-  categorical_facets: {
-    collectionPoint: {
-      label: 'Collection point',
-      options: [
-        {
-          id: 'baseline',
-          label: 'baseline'
-        },
-        {
-          id: 'follow-up-1b',
-          label: 'follow-up 1B'
-        },
-        {
-          id: 'follow-up-1c',
-          label: 'follow-up 1C'
-        },
-        {
-          id: 'next',
-          label: 'next'
-        },
-        {
-          id: 'second-assessment-2',
-          label: 'second assessment 2'
-        }
-      ]
-    },
-    ageGroup: {
-      label: 'Age',
-      options: [
-        {
-          id: '0-3',
-          label: '0-3'
-        },
-        {
-          id: '4-7',
-          label: '4-7'
-        },
-        {
-          id: '8-12',
-          label: '8-12'
-        },
-        {
-          id: '13-17',
-          label: '13-17'
-        },
-        {
-          id: '18-64',
-          label: '18-64'
-        },
-        {
-          id: '65+',
-          label: '65+'
-        }
-      ]
-    },
-    sexGroup: {
-      label: 'Sex Group',
-      options: [
-        {
-          id: 'F',
-          label: 'Female'
-        },
-        {
-          id: 'M',
-          label: 'Male'
-        }
-      ]
-    },
-    subCohorts: {
-      label: 'Sub cohorts',
-      options: [
-        {
-          id: 'baseline',
-          label: 'baseline'
-        },
-        {
-          id: 'next',
-          label: 'next'
-        }
-      ]
-    }
+  categoricalFacets: {
+    collectionPoint: {},
+    ageGroup: {},
+    sexGroup: {},
+    subCohorts: {}
   },
   selectedOptions: {
     ageGroup: ['0-3', '3-7'],

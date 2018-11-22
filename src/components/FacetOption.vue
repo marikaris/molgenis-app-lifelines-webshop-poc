@@ -8,25 +8,25 @@
     props: {
       label: {
         type: String,
-        required: true,
+        required: true
       },
       active: {
         type: Boolean,
         required: false,
-        default: false,
-      },
+        default: false
+      }
     },
-    data() {
-        return {
-          selected: this.active,
-        };
+    data () {
+      return {
+        selected: this.active
+      }
     },
     computed: {
-      variant() {
-        return this.selected ? 'primary' : 'outline-primary';
-      },
-    },
-  };
+      variant () {
+        return this.selected ? 'primary' : 'outline-primary'
+      }
+    }
+  }
 </script>
 
 <style scoped>

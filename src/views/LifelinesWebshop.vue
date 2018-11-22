@@ -14,10 +14,10 @@
         </b-row>
         <b-row>
             <b-col md="3">
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.ageGroup"></Facet>
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.sexGroup"></Facet>
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.subCohorts"></Facet>
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.collectionPoint"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.ageGroup"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.sexGroup"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.subCohorts"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.collectionPoint"></Facet>
             </b-col>
             <b-col md="2">
                Topic Tree
@@ -43,12 +43,20 @@
     methods: {
       ...mapActions([
         'getDataItems',
-        'getTopics'
+        'getTopics',
+        'getAgeGroups',
+        'getSexGroups',
+        'getSubCohorts',
+        'getCollectionPoints'
       ])
     },
     mounted () {
       this.getDataItems()
       this.getTopics()
-    },
+      this.getAgeGroups()
+      this.getSexGroups()
+      this.getSubCohorts()
+      this.getCollectionPoints()
+    }
   })
 </script>

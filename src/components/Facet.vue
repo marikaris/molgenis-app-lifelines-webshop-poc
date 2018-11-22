@@ -9,24 +9,24 @@
         </b-row>
         <b-row>
             <b-col>
-                <FacetOption v-for="option in this.categoricalFacet.options" :label="option.label"></FacetOption>
+                <FacetOption v-for="option in this.categoricalFacet.options" :key="option.id" :label="option.label"></FacetOption>
             </b-col>
         </b-row>
     </div>
 </template>
 
 <script>
-  import FacetOption from '../components/FacetOption.vue';
+  import FacetOption from '../components/FacetOption.vue'
   export default {
     name: 'Facet',
-    components: {FacetOption},
+    components: { FacetOption },
     props: {
       categoricalFacet: {
         type: Object,
-        required: true,
-      },
-    },
-  };
+        required: true
+      }
+    }
+  }
 </script>
 <style scoped>
     .facet{
