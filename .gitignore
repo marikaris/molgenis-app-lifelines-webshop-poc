@@ -21,6 +21,5 @@ yarn-error.log*
 *.sw*
 
 # Generated files
-/src/**.js
-/src/**.js.map
-
+src/**/*.js
+src/**/*.map
