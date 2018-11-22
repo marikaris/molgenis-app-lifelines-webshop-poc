@@ -30,14 +30,23 @@
 </template>
 
 <script>
-    import Vue from 'vue';
-    import Facet from '../components/Facet.vue';
+  import Vue from 'vue';
+  import Facet from '../components/Facet.vue';
+  import { mapActions } from 'vuex';
 
-    export default Vue.extend({
-        name: 'LifelinesWebshop',
-        components: {Facet},
-        props: {
-            msg: String,
-        },
-    });
+  export default Vue.extend({
+    name: 'LifelinesWebshop',
+    components: {Facet},
+    props: {
+      msg: String,
+    },
+    methods: {
+      ...mapActions([
+        'getDataItems',
+      ]),
+    },
+    mounted() {
+      this.getDataItems();
+    },
+  });
 </script>
