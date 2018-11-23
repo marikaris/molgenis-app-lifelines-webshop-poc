@@ -5,7 +5,7 @@ import CategoricalFacets from '@/types/store/categoricalFacets'
 export default interface ApplicationState {
   dataItems: DataItem[]
   topics: Topic[]
-  categorical_facets: CategoricalFacets
+  categoricalFacets: CategoricalFacets
   selectedOptions: {
     ageGroup: string[];
     sexGroup: string[];

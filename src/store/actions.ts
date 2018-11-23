@@ -1,25 +1,42 @@
-// @ts-ignore
-import api from '@molgenis/molgenis-api-client'
-
-const toDataItem = (item: any) => {
-  return {
-    id: item.id,
-    ageGroups: item.ageGroups,
-    sexGroups: item.sexGroups.map((sg: any) => sg.id),
-    subCohorts: item.subcohorts.map((sc: any) => sc.id),
-    collectionPoints: item.collections.map((c: any) => c.id),
-    topic: item.topic.id,
-    label: item.label,
-    ordinalPosition: item.ordinalPosition,
-    description: item.description
-  }
-}
+import dataItemRepository from '@/repository/dataItemRepository'
+import topicRepository from '@/repository/topicRepository'
+import categoricalFacetRepository from '@/repository/categoricalFacetRepository'
 
 export default {
 
-  getDataItems ({ commit }: any) {
-    api.get('api/v2/lifelines_dataItems').then((response: any) => {
-      commit('setDataItems', response.items.map(toDataItem))
-    })
+  getDataItems ({ commit }: any): void {
+    dataItemRepository.getAll().then((dataItems) => {
+      commit('setDataItems', dataItems)
+    }).catch()
+  },
+
+  getTopics ({ commit }: any) {
+    topicRepository.getAll().then((topics) => {
+      commit('setTopics', topics)
+    }).catch()
+  },
+
+  getAgeGroups ({ commit }: any) {
+    categoricalFacetRepository.getAgeGroups().then((ageGroups) => {
+      commit('setAgeGroups', ageGroups)
+    }).catch()
+  },
+
+  getSexGroups ({ commit }: any) {
+    categoricalFacetRepository.getSexGroups().then((sexGroups) => {
+      commit('setSexGroups', sexGroups)
+    }).catch()
+  },
+
+  getSubCohorts ({ commit }: any) {
+    categoricalFacetRepository.getSubCohorts().then((subCohorts) => {
+      commit('setSubCohorts', subCohorts)
+    }).catch()
+  },
+
+  getCollectionPoints ({ commit }: any) {
+    categoricalFacetRepository.getCollectionPoints().then((collectionPoints) => {
+      commit('setCollectionPoints', collectionPoints)
+    }).catch()
   }
 }

@@ -14,10 +14,10 @@
         </b-row>
         <b-row>
             <b-col md="3">
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.ageGroup"></Facet>
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.sexGroup"></Facet>
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.subCohorts"></Facet>
-                <Facet :categoricalFacet="this.$store.state.categorical_facets.collectionPoint"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.ageGroup"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.sexGroup"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.subCohorts"></Facet>
+                <Facet :categoricalFacet="this.$store.state.categoricalFacets.collectionPoint"></Facet>
             </b-col>
             <b-col md="2">
                Topic Tree
@@ -30,23 +30,33 @@
 </template>
 
 <script>
-  import Vue from 'vue';
-  import Facet from '../components/Facet.vue';
-  import { mapActions } from 'vuex';
+  import Vue from 'vue'
+  import Facet from '../components/Facet.vue'
+  import { mapActions } from 'vuex'
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
-    components: {Facet},
+    components: { Facet },
     props: {
-      msg: String,
+      msg: String
     },
     methods: {
       ...mapActions([
         'getDataItems',
-      ]),
+        'getTopics',
+        'getAgeGroups',
+        'getSexGroups',
+        'getSubCohorts',
+        'getCollectionPoints'
+      ])
     },
-    mounted() {
-      this.getDataItems();
-    },
-  });
+    mounted () {
+      this.getDataItems()
+      this.getTopics()
+      this.getAgeGroups()
+      this.getSexGroups()
+      this.getSubCohorts()
+      this.getCollectionPoints()
+    }
+  })
 </script>
