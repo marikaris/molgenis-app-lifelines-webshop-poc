@@ -46,7 +46,7 @@
                 <Facet :categoricalFacet="this.$store.state.categoricalFacets.collectionPoint"></Facet>
             </b-col>
             <b-col md="2">
-                Topic Tree
+               <topic-tree></topic-tree>
             </b-col>
             <b-col md="7">
                 <data-items :dataItems="vueDataItems"></data-items>
@@ -59,11 +59,12 @@
   import Vue from 'vue'
   import Facet from '@/components/Facet.vue'
   import DataItems from '@/components/DataItems.vue'
+  import TopicTree from '@/components/TopicTree.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
-    components: {Facet, DataItems},
+    components: { Facet, DataItems, TopicTree },
     props: {
       msg: String
     },
