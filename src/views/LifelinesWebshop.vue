@@ -23,7 +23,7 @@
                Topic Tree
             </b-col>
             <b-col md="7">
-                Data items
+                <data-items :dataItems="vueDataItems"></data-items>
             </b-col>
         </b-row>
     </b-container>
@@ -31,12 +31,13 @@
 
 <script>
   import Vue from 'vue'
-  import Facet from '../components/Facet.vue'
-  import { mapActions } from 'vuex'
+  import Facet from '@/components/Facet.vue'
+  import DataItems from '@/components/DataItems.vue'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
-    components: { Facet },
+    components: { Facet, DataItems },
     props: {
       msg: String
     },
@@ -49,6 +50,9 @@
         'getSubCohorts',
         'getCollectionPoints'
       ])
+    },
+    computed: {
+      ...mapGetters(['vueDataItems'])
     },
     mounted () {
       this.getDataItems()

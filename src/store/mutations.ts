@@ -4,7 +4,13 @@ import Topic from '@/types/store/topic'
 import CategoricalFacet from '@/types/store/categoricalFacet'
 
 export default {
-
+  toggleDataItem (state: ApplicationState, id: string) {
+    if (state.selectedDataItems.includes(id)) {
+      state.selectedDataItems = state.selectedDataItems.filter(x => x !== id)
+    } else {
+      state.selectedDataItems = [...state.selectedDataItems, id]
+    }
+  },
   setDataItems (state: ApplicationState, dataItems: DataItem[]) {
     state.dataItems = dataItems
   },

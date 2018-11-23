@@ -8,5 +8,7 @@ export default interface VueDataItem {
   collectionPoints: CategoricalFacetOption[]
   topic: Topic
   label: string
-  description: string
+  description: string,
+  enabled: boolean,
+  selected: boolean
 }

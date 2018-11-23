@@ -4,10 +4,10 @@ const state: ApplicationState = {
   dataItems: [],
   topics: [],
   categoricalFacets: {
-    collectionPoint: {},
-    ageGroup: {},
-    sexGroup: {},
-    subCohorts: {}
+    collectionPoint: { label: '', options: [] },
+    ageGroup:  { label: '', options: [] },
+    sexGroup:  { label: '', options: [] },
+    subCohorts:  { label: '', options: [] }
   },
   selectedOptions: {
     ageGroup: ['0-3', '3-7'],
