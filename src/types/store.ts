@@ -43,9 +43,11 @@ export interface ApplicationState {
     sexGroup: string[];
     subCohorts: string[];
     collectionPoint: string[];
+    topic?: string
     searchTerm: string;
   }
   selectedDataItems: string[]
+  openTopics: string[]
 }
 
 export default ApplicationState

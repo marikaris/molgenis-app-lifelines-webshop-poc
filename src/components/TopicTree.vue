@@ -1,22 +1,32 @@
 <template>
-  <b-tree-view :data="topicTree"
-               :contextMenu="false"
-               :renameNodeOnDblClick="false"
-               nodeLabelProp="label"></b-tree-view>
+  <b-list-group>
+    <b-list-group-item v-for="topic in topicList"
+                       :key="topic.id"
+                       :button="true"
+                       :variant="topic.children.length ? 'secondary' : 'default'"
+                       :active="topic.selected"
+                       @click="topicClick(topic)">
+      {{topic.label}}
+    </b-list-group-item>
+  </b-list-group>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
-  export default {
-    name: 'Topic',
-    computed: {
-      ...mapGetters(['topicTree'])
-    },
-    props: {
-      topics: {
-        type: Array,
-        required: true
+export default {
+  name: 'Topic',
+  methods: {
+    topicClick (topic) {
+      if (topic.children.length) {
+        this.toggleTopicOpen(topic.id)
+      } else {
+        this.toggleTopicSelect(topic.id)
       }
-    }
+    },
+    ...mapMutations(['toggleTopicSelect', 'toggleTopicOpen'])
+  },
+  computed: {
+    ...mapGetters(['topicList'])
   }
+}
 </script>

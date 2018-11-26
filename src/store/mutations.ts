@@ -50,5 +50,18 @@ export default {
 
   setCollectionPoints (state: ApplicationState, collectionPoints: CategoricalFacet) {
     state.categoricalFacets.collectionPoint = collectionPoints
+  },
+
+  toggleTopicSelect (state: ApplicationState, id: string) {
+    state.selectedOptions.topic = state.selectedOptions.topic === id ? undefined : id
+  },
+
+  toggleTopicOpen (state: ApplicationState, id: string) {
+    const index = state.openTopics.indexOf(id)
+    if (index === -1) {
+      state.openTopics.push(id)
+    } else {
+      state.openTopics.splice(index, 1)
+    }
   }
 }

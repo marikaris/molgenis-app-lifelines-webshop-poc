@@ -14,5 +14,7 @@ export interface VueDataItem {
 
 export interface VueTopic extends Identifiable {
   label: string,
-  children: VueTopic[]
+  children: VueTopic[],
+  selected: boolean,
+  open: boolean
 }
