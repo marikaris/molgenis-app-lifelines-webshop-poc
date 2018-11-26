@@ -52,6 +52,7 @@ export interface DataItem extends Identifiable {
 export interface Topic extends Identifiable {
   label: string
   parentTopicId?: string
+  dataItems: string[]
 }
 
 export interface TopicNode extends Topic {
