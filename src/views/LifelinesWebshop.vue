@@ -42,7 +42,7 @@
                                 <SearchBar elementsToFilter="data-item-card"></SearchBar>
                             </b-col>
                         </b-row>
-                        <b-row  class="mt-2">
+                        <b-row class="mt-2">
                             <b-col md="3">
                                 <topic-tree></topic-tree>
                             </b-col>
@@ -67,7 +67,7 @@
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
-    components: {Facet, DataItems, TopicTree, SearchBar},
+    components: { Facet, DataItems, TopicTree, SearchBar },
     props: {
       msg: String
     },

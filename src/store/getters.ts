@@ -3,12 +3,22 @@ import { VueDataItem, VueTopic } from '@/types/vue'
 
 type TermGuard<T> = (x: T | undefined) => x is T
 
-const lookup = <T extends Identifiable>(ids: string[], options: T[]): T[] =>
-    ids.map(id => (options || []).find(option => option.id === id))
+const lookup = <T extends Identifiable> (ids: string[], options: T[]): T[] =>
+  ids.map(id => (options || []).find(option => option.id === id))
     .filter((x => x !== undefined) as TermGuard<T>)
 
 const intersects = (a: string[], b: string[]): boolean => {
   return a.filter(value => -1 !== b.indexOf(value)).length > 0
+}
+
+const searchTermInTopic = (searchTerm: string, topicOfDataItem: string, topics: Topic[]) => {
+  console.log(searchTerm, topicOfDataItem)
+  const topic = topics.filter((topic) => topic.id === topicOfDataItem)[0].label
+  return searchTermInLabel(searchTerm, topic)
+}
+
+const searchTermInLabel = (searchTerm: string, label: string) => {
+  return label.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
 }
 
 export default {
@@ -18,13 +28,13 @@ export default {
       id: topic.id,
       label: topic.label,
       children: state.topics
-      .filter(child => child.parentTopicId === topic.id)
-      .filter(child => child.id !== topic.id)
-      .map(toTopicNode)
+        .filter(child => child.parentTopicId === topic.id)
+        .filter(child => child.id !== topic.id)
+        .map(toTopicNode)
     })
     return state.topics
-    .filter(isRootTopic)
-    .map(toTopicNode)
+      .filter(isRootTopic)
+      .map(toTopicNode)
   },
   topicList: (state: ApplicationState, getters: { topicTree: TopicNode[] }): VueTopic[] => {
     const treeWalker = (previous: VueTopic[], current: TopicNode): VueTopic[] => {
@@ -41,7 +51,9 @@ export default {
   vueDataItems: (state: ApplicationState): VueDataItem[] =>
     state.dataItems.filter(item => state.selectedOptions.topic === item.topic)
       .filter(
-        item => state.selectedOptions.searchTerm ? item.label.toLowerCase().indexOf(state.selectedOptions.searchTerm.toLowerCase()) > -1 : true)
+        item => state.selectedOptions.searchTerm ?
+          searchTermInLabel(state.selectedOptions.searchTerm, item.label) ||
+          searchTermInTopic(state.selectedOptions.searchTerm, item.topic, state.topics) : true)
       .map(item => ({
         ...item,
         collectionPoints: lookup(item.collectionPoints, state.categoricalFacets.collectionPoint.options),
@@ -64,9 +76,9 @@ export default {
       return state.selectedDataItems.includes(item.id)
     }).filter(item => {
       return intersects(state.selectedOptions.subCohorts, item.subCohorts) ||
-      intersects(state.selectedOptions.ageGroup, item.ageGroups) ||
-      intersects(state.selectedOptions.sexGroup, item.sexGroups) ||
-      intersects(state.selectedOptions.collectionPoint, item.collectionPoints)
+        intersects(state.selectedOptions.ageGroup, item.ageGroups) ||
+        intersects(state.selectedOptions.sexGroup, item.sexGroups) ||
+        intersects(state.selectedOptions.collectionPoint, item.collectionPoints)
     }).length
   }
 }
