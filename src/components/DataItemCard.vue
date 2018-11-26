@@ -8,11 +8,11 @@
     <div>
       <b-badge v-for="subCohort in dataItem.subCohorts"
                :variant = "dataItem.selected ? 'light' : 'primary'"
-               :key="subCohort.id" class="mr-1"><font-awesome-icon icon="users"/> {{subCohort.label}}
+               :key="'sh-' + subCohort.id" class="mr-1"><font-awesome-icon icon="users"/> {{subCohort.label}}
       </b-badge>
-      <b-badge v-for="collection in dataItem.collectionPoints"
+      <b-badge v-for="collectionPoint in dataItem.collectionPoints"
                :variant = "dataItem.selected ? 'light' : 'secondary'"
-               :key="collection.id" class="mr-1"><font-awesome-icon icon="calendar"/> {{collection.label}}
+               :key="'cp-' + collectionPoint.id" class="mr-1"><font-awesome-icon icon="calendar"/> {{collectionPoint.label}}
       </b-badge>
     </div>
   </b-list-group-item>
