@@ -46,7 +46,9 @@ export default {
           intersects(state.selectedOptions.ageGroup, item.ageGroups) ||
           intersects(state.selectedOptions.sexGroup, item.sexGroups) ||
           intersects(state.selectedOptions.collectionPoint, item.collectionPoints)
-    })),
+    })).filter(item =>
+        !state.selectedOptions.topic || state.selectedOptions.topic === item.topic.id
+    ),
   selectedAgeGroups: (state: ApplicationState): string[] => state.selectedOptions.ageGroup,
   selectedSexGroups: (state: ApplicationState): string[] => state.selectedOptions.sexGroup,
   selectedCollectionPoints: (state: ApplicationState): string[] => state.selectedOptions.collectionPoint,
