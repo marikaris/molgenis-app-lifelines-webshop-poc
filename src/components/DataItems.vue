@@ -1,12 +1,11 @@
 <template>
-  <div class="d-flex flex-wrap">
+  <b-list-group>
     <data-item-card v-for="dataItem in dataItems"
                     :dataItem="dataItem"
                     :key="dataItem.id"
                     class="m-1 rounded"
-                    style="width: 30%"
                     @click="toggleDataItem(dataItem.id)"></data-item-card>
-  </div>
+  </b-list-group>
 </template>
 
 <script lang="ts">

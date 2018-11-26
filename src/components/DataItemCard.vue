@@ -1,27 +1,20 @@
 <template>
   <b-list-group-item @click="$emit('click')"
-                     href="#"
+                     button
+                     class="d-flex justify-content-between align-items-center"
                      :active="dataItem.selected"
                      :disabled="!dataItem.enabled">
-    <h5>{{dataItem.label}}</h5>
-    <dl class="row">
-      <dt class="col-sm-4">Topic</dt>
-      <dd class="col-sm-8">{{dataItem.topic.label}}</dd>
-      <dt class="col-sm-4">Subcohorts</dt>
-      <dd class="col-sm-8">
-        <b-badge v-for="subCohort in dataItem.subCohorts"
-                 :variant = "dataItem.selected ? 'light' : 'secondary'"
-                 :key="subCohort.id" class="mr-1">{{subCohort.label}}
-        </b-badge>
-      </dd>
-      <dt class="col-sm-4">Collections</dt>
-      <dd class="col-sm-8">
-        <b-badge v-for="collection in dataItem.collectionPoints"
-                 :variant = "dataItem.selected ? 'light' : 'secondary'"
-                 :key="collection.id" class="mr-1">{{collection.label}}
-        </b-badge>
-      </dd>
-    </dl>
+    {{dataItem.label}}
+    <div>
+      <b-badge v-for="subCohort in dataItem.subCohorts"
+               :variant = "dataItem.selected ? 'light' : 'primary'"
+               :key="subCohort.id" class="mr-1"><font-awesome-icon icon="users"/> {{subCohort.label}}
+      </b-badge>
+      <b-badge v-for="collection in dataItem.collectionPoints"
+               :variant = "dataItem.selected ? 'light' : 'secondary'"
+               :key="collection.id" class="mr-1"><font-awesome-icon icon="calendar"/> {{collection.label}}
+      </b-badge>
+    </div>
   </b-list-group-item>
 </template>
 
