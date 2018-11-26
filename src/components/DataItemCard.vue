@@ -2,7 +2,7 @@
   <b-list-group-item @click="$emit('click')"
                      button
                      class="d-flex justify-content-between align-items-center"
-                     :active="dataItem.selected"
+                     :active="dataItem.enabled && dataItem.selected"
                      :disabled="!dataItem.enabled">
     {{dataItem.label}}
     <div>
@@ -29,3 +29,10 @@
     }
   })
 </script>
+
+<style>
+   button.list-group-item:disabled,
+   button.list-group-item[disabled] {
+    background-color: #cccccc24;
+  }
+</style>
