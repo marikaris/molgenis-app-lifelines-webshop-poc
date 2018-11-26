@@ -13,7 +13,6 @@ const state: ApplicationState = {
     ageGroup: [],
     sexGroup: [],
     subCohorts: [],
-    collectionPoint: ['baseline'],
     topic: undefined,
     collectionPoint: [],
     searchTerm: 'hallo, ik sta in de state'
