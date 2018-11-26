@@ -5,10 +5,10 @@
             <b-col md="3">
                 <h3 class="nav-title font-weight-bold">Filter items</h3>
             </b-col>
-            <b-col md="6">
+            <b-col md="3">
                 <h3 class="nav-title font-weight-bold">Data items</h3>
             </b-col>
-            <b-col md="3">
+            <b-col md="6">
                 <div class="float-right">
                     <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit">
                         <font-awesome-icon icon="save"/>
