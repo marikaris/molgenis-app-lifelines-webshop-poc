@@ -1,3 +1,5 @@
+import { VueTopic } from '@/types/vue'
+
 export interface Identifiable {
   id: string
 }
@@ -32,6 +34,10 @@ export interface DataItem extends Identifiable {
 export interface Topic extends Identifiable {
   label: string
   parentTopicId?: string
+}
+
+export interface TopicNode extends Topic {
+  children: TopicNode[]
 }
 
 export interface ApplicationState {

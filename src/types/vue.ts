@@ -1,4 +1,4 @@
-import { CategoricalFacetOption, Identifiable, Topic } from '@/types/store'
+import { CategoricalFacetOption, Identifiable, Topic, TopicNode } from '@/types/store'
 
 export interface VueDataItem {
   ageGroups: CategoricalFacetOption[]
@@ -12,9 +12,7 @@ export interface VueDataItem {
   selected: boolean
 }
 
-export interface VueTopic extends Identifiable {
-  label: string,
-  children: VueTopic[],
+export interface VueTopic extends TopicNode {
   selected: boolean,
   open: boolean
 }
