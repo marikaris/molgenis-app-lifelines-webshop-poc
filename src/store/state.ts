@@ -18,7 +18,7 @@ const state: ApplicationState = {
     searchTerm: 'hallo, ik sta in de state'
   },
   openTopics: [],
-  selectedDataItems: ['var1']
+  selectedDataItems: []
 }
 
 export default state
