@@ -1,7 +1,14 @@
 <template>
     <b-container fluid class="mt-2">
-        <b-row>
-            <b-col class="mb-2">
+
+        <b-row class="pt-2">
+            <b-col md="3">
+                <h3 class="nav-title font-weight-bold">Filter items</h3>
+            </b-col>
+            <b-col md="6">
+                <h3 class="nav-title font-weight-bold">Data items</h3>
+            </b-col>
+            <b-col md="3">
                 <div class="float-right">
                     <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit">
                         <font-awesome-icon icon="save"/>
@@ -11,33 +18,14 @@
                         <font-awesome-icon icon="undo"/>
                         Reset
                     </b-button>
-                    <b-button variant="outline-info" class="mr-1 my-2 my-sm-0" type="submit">Request</b-button>
-                </div>
-
-            </b-col>
-        </b-row>
-        <b-row>
-            <b-col md="3">
-                <h3 class="nav-title font-weight-bold">Filter items</h3>
-            </b-col>
-            <b-col md="6">
-                <div>
-                    <b-input-group>
-                        <b-form-input
-                                class="search-bar"
-                                type="text"
-                                placeholder="Search">
-                        </b-form-input>
-
-                        <b-input-group-append>
-                            <b-btn variant="outline-secondary" class="search-icon">
-                                <font-awesome-icon icon="search"/>
-                            </b-btn>
-                        </b-input-group-append>
-                    </b-input-group>
+                    <b-button variant="outline-info" class="mr-1 my-2 my-sm-0" type="submit">
+                        <font-awesome-icon icon="shopping-cart"/> Selected Items <span class="badge badge-info">{{selectionCount}}</span>
+                    </b-button>
                 </div>
             </b-col>
+
         </b-row>
+
         <b-row class="mt-2">
             <b-col md="3">
                 <Facet :categoricalFacet="this.$store.state.categoricalFacets.ageGroup"></Facet>
@@ -45,11 +33,32 @@
                 <Facet :categoricalFacet="this.$store.state.categoricalFacets.subCohorts"></Facet>
                 <Facet :categoricalFacet="this.$store.state.categoricalFacets.collectionPoint"></Facet>
             </b-col>
-            <b-col md="2">
-               <topic-tree></topic-tree>
-            </b-col>
-            <b-col md="7">
-                <data-items :dataItems="vueDataItems"></data-items>
+            <b-col md="9">
+                <b-row>
+                    <b-col>
+                        <b-input-group>
+                            <b-form-input
+                                class="search-bar"
+                                type="text"
+                                placeholder="Search">
+                            </b-form-input>
+
+                            <b-input-group-append>
+                                <b-btn variant="outline-secondary" class="search-icon">
+                                    <font-awesome-icon icon="search"/>
+                                </b-btn>
+                            </b-input-group-append>
+                        </b-input-group>
+                    </b-col>
+                </b-row>
+                <b-row class="mt-2">
+                    <b-col md="3">
+                        <topic-tree></topic-tree>
+                    </b-col>
+                    <b-col md="9">
+                        <data-items :dataItems="vueDataItems"></data-items>
+                    </b-col>
+                </b-row>
             </b-col>
         </b-row>
     </b-container>
@@ -79,7 +88,7 @@
       ])
     },
     computed: {
-      ...mapGetters(['vueDataItems'])
+      ...mapGetters(['vueDataItems', 'selectionCount'])
     },
     mounted () {
       this.getDataItems()

@@ -4,14 +4,15 @@ import router from './router'
 import store from './store/store'
 
 import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
 import '@/assets/lifelines_bs4.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faQuestionCircle, faSave, faUndo, faSearch, faUsers, faCalendar } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle, faSave, faUndo, faSearch, faUsers, faCalendar, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faQuestionCircle, faSave, faUndo, faSearch, faUsers, faCalendar)
+library.add(faQuestionCircle, faSave, faUndo, faSearch, faUsers, faCalendar, faShoppingCart)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
