@@ -15,7 +15,7 @@ const state: ApplicationState = {
     subCohorts: [],
     topic: undefined,
     collectionPoint: [],
-    searchTerm: 'hallo, ik sta in de state'
+    searchTerm: ''
   },
   openTopics: [],
   selectedDataItems: []

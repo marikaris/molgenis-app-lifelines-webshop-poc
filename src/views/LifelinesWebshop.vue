@@ -19,7 +19,8 @@
                         Reset
                     </b-button>
                     <b-button variant="outline-info" class="mr-1 my-2 my-sm-0" type="submit">
-                        <font-awesome-icon icon="shopping-cart"/> Selected Items <span class="badge badge-info">{{selectionCount}}</span>
+                        <font-awesome-icon icon="shopping-cart"/>
+                        Selected Items <span class="badge badge-info">{{selectionCount}}</span>
                     </b-button>
                 </div>
             </b-col>
@@ -36,27 +37,19 @@
             <b-col md="9">
                 <b-row>
                     <b-col>
-                        <b-input-group>
-                            <b-form-input
-                                class="search-bar"
-                                type="text"
-                                placeholder="Search">
-                            </b-form-input>
-
-                            <b-input-group-append>
-                                <b-btn variant="outline-secondary" class="search-icon">
-                                    <font-awesome-icon icon="search"/>
-                                </b-btn>
-                            </b-input-group-append>
-                        </b-input-group>
-                    </b-col>
-                </b-row>
-                <b-row class="mt-2">
-                    <b-col md="3">
-                        <topic-tree></topic-tree>
-                    </b-col>
-                    <b-col md="9">
-                        <data-items :dataItems="vueDataItems"></data-items>
+                        <b-row>
+                            <b-col>
+                                <SearchBar elementsToFilter="data-item-card"></SearchBar>
+                            </b-col>
+                        </b-row>
+                        <b-row  class="mt-2">
+                            <b-col md="3">
+                                <topic-tree></topic-tree>
+                            </b-col>
+                            <b-col md="9">
+                                <data-items :dataItems="vueDataItems"></data-items>
+                            </b-col>
+                        </b-row>
                     </b-col>
                 </b-row>
             </b-col>
@@ -69,11 +62,12 @@
   import Facet from '@/components/Facet.vue'
   import DataItems from '@/components/DataItems.vue'
   import TopicTree from '@/components/TopicTree.vue'
+  import SearchBar from '@/components/SearchBar.vue'
   import { mapGetters, mapActions } from 'vuex'
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
-    components: { Facet, DataItems, TopicTree },
+    components: {Facet, DataItems, TopicTree, SearchBar},
     props: {
       msg: String
     },
@@ -101,17 +95,7 @@
   })
 </script>
 <style scoped>
-    .search-icon {
-        color: #495057;
-        border-color: #ced4da;
-        border-style: solid;
-        border-width: 1px 1px 1px 0px;
-    }
-    .search-bar {
-        border-width: 1px 0px 1px 1px;
-    }
-
-    h3.nav-title{
+    h3.nav-title {
         color: #276daa;
     }
 </style>

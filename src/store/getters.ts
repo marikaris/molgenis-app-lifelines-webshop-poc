@@ -39,9 +39,10 @@ export default {
     return getters.topicTree.reduce(treeWalker, [] as VueTopic[])
   },
   vueDataItems: (state: ApplicationState): VueDataItem[] =>
-      state.dataItems.filter(item =>
-          state.selectedOptions.topic === item.topic
-      ).map(item => ({
+    state.dataItems.filter(item => state.selectedOptions.topic === item.topic)
+      .filter(
+        item => state.selectedOptions.searchTerm ? item.label.toLowerCase().indexOf(state.selectedOptions.searchTerm.toLowerCase()) > -1 : true)
+      .map(item => ({
         ...item,
         collectionPoints: lookup(item.collectionPoints, state.categoricalFacets.collectionPoint.options),
         ageGroups: lookup(item.ageGroups, state.categoricalFacets.ageGroup.options),
