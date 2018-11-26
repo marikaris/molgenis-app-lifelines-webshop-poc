@@ -52,6 +52,10 @@ export default {
     state.categoricalFacets.collectionPoint = collectionPoints
   },
 
+  setSearchTerm (state: ApplicationState, searchTerm: string) {
+    state.selectedOptions.searchTerm = searchTerm
+  },
+
   toggleTopicSelect (state: ApplicationState, id: string) {
     state.selectedOptions.topic = state.selectedOptions.topic === id ? undefined : id
   },
