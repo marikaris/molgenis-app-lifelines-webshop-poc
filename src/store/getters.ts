@@ -52,5 +52,15 @@ export default {
   selectedAgeGroups: (state: ApplicationState): string[] => state.selectedOptions.ageGroup,
   selectedSexGroups: (state: ApplicationState): string[] => state.selectedOptions.sexGroup,
   selectedCollectionPoints: (state: ApplicationState): string[] => state.selectedOptions.collectionPoint,
-  selectedSubCohorts: (state: ApplicationState): string[] => state.selectedOptions.subCohorts
+  selectedSubCohorts: (state: ApplicationState): string[] => state.selectedOptions.subCohorts,
+  selectionCount: (state: ApplicationState): number => {
+    return state.dataItems.filter(item => {
+      return state.selectedDataItems.includes(item.id)
+    }).filter(item => {
+      return intersects(state.selectedOptions.subCohorts, item.subCohorts) ||
+      intersects(state.selectedOptions.ageGroup, item.ageGroups) ||
+      intersects(state.selectedOptions.sexGroup, item.sexGroups) ||
+      intersects(state.selectedOptions.collectionPoint, item.collectionPoints)
+    }).length
+  }
 }
