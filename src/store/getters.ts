@@ -7,6 +7,10 @@ const lookup = <T extends Identifiable>(ids: string[], options: T[]): T[] =>
     ids.map(id => (options || []).find(option => option.id === id))
     .filter((x => x !== undefined) as TermGuard<T>)
 
+const intersects = (a: string[], b: string[]): boolean => {
+  return a.filter(value => -1 !== b.indexOf(value)).length > 0
+}
+
 export default {
   topicTree: (state: ApplicationState): VueTopic[] => {
     const isRootTopic = (topic: Topic): boolean => !topic.parentTopicId || topic.parentTopicId === topic.id
@@ -23,14 +27,21 @@ export default {
       .map(toVueTopic)
   },
   vueDataItems: (state: ApplicationState): VueDataItem[] =>
-      state.dataItems.map(item => ({
-        ...item,
-        collectionPoints: lookup(item.collectionPoints, state.categoricalFacets.collectionPoint.options),
-        ageGroups: lookup(item.ageGroups, state.categoricalFacets.ageGroup.options),
-        subCohorts: lookup(item.subCohorts, state.categoricalFacets.subCohorts.options),
-        sexGroups: lookup(item.sexGroups, state.categoricalFacets.sexGroup.options),
-        topic: lookup([item.topic], state.topics)[0],
-        selected: state.selectedDataItems.includes(item.id),
-        enabled: true
-      }))
+    state.dataItems.map(item => ({
+      ...item,
+      collectionPoints: lookup(item.collectionPoints, state.categoricalFacets.collectionPoint.options),
+      ageGroups: lookup(item.ageGroups, state.categoricalFacets.ageGroup.options),
+      subCohorts: lookup(item.subCohorts, state.categoricalFacets.subCohorts.options),
+      sexGroups: lookup(item.sexGroups, state.categoricalFacets.sexGroup.options),
+      topic: lookup([item.topic], state.topics)[0],
+      selected: state.selectedDataItems.includes(item.id),
+      enabled: intersects(state.selectedOptions.subCohorts, item.subCohorts) ||
+          intersects(state.selectedOptions.ageGroup, item.ageGroups) ||
+          intersects(state.selectedOptions.sexGroup, item.sexGroups) ||
+          intersects(state.selectedOptions.collectionPoint, item.collectionPoints)
+    })),
+  selectedAgeGroups: (state: ApplicationState): string[] => state.selectedOptions.ageGroup,
+  selectedSexGroups: (state: ApplicationState): string[] => state.selectedOptions.sexGroup,
+  selectedCollectionPoints: (state: ApplicationState): string[] => state.selectedOptions.collectionPoint,
+  selectedSubCohorts: (state: ApplicationState): string[] => state.selectedOptions.subCohorts
 }
