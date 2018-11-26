@@ -1,4 +1,4 @@
-import { ApplicationState, CategoricalFacet, DataItem, Topic } from '@/types/store'
+import { ApplicationState, CategoricalFacet, RawDataItem, Topic } from '@/types/store'
 
 const toggle = (list: string[], item: string): void => {
   if (list.includes(item)) {
@@ -28,7 +28,7 @@ export default {
   toggleCollectionPointOption (state: ApplicationState, toggledOptionId: string) {
     toggle(state.selectedOptions.collectionPoint, toggledOptionId)
   },
-  setDataItems (state: ApplicationState, dataItems: DataItem[]) {
+  setDataItems (state: ApplicationState, dataItems: RawDataItem[]) {
     state.dataItems = dataItems
   },
 
