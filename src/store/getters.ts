@@ -61,6 +61,6 @@ export default {
       intersects(state.selectedOptions.ageGroup, item.ageGroups) ||
       intersects(state.selectedOptions.sexGroup, item.sexGroups) ||
       intersects(state.selectedOptions.collectionPoint, item.collectionPoints)
-    }).length;
+    }).length
   }
 }
