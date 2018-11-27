@@ -7,12 +7,12 @@ export interface VueDataItem {
   collectionPoints: CategoricalFacetOption[]
   topic: Topic
   label: string
-  description: string,
-  enabled: boolean,
+  description: string
+  enabled: boolean
   selected: boolean
 }
 
 export interface VueTopic extends TopicNode {
-  selected: boolean,
+  selected: boolean
   open: boolean
 }

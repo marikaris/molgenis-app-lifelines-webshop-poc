@@ -7,11 +7,13 @@
                        :active="topic.selected"
                        @click="topicClick(topic)">
       {{topic.label}}
+      {{countItems(topic, item => dataItemSelected(item) && dataItemEnabled(item))}}/{{countItems(topic)}}
     </b-list-group-item>
   </b-list-group>
 </template>
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import { isDefined } from '../store/helpers'
 
 export default {
   name: 'Topic',
@@ -23,10 +25,16 @@ export default {
         this.toggleTopicSelect(topic.id)
       }
     },
-    ...mapMutations(['toggleTopicSelect', 'toggleTopicOpen'])
+    ...mapMutations(['toggleTopicSelect', 'toggleTopicOpen']),
+    countItems (topic, itemFilter = () => true) {
+      return topic.children.reduce(
+        (previous, current) => previous + this.countItems(current, itemFilter), 0)
+        + topic.dataItems.map(id => this.allDataItems[id]).filter(isDefined).filter(itemFilter).length
+    }
   },
   computed: {
-    ...mapGetters(['topicList'])
+    ...mapGetters(['topicList', 'dataItemSelected', 'dataItemEnabled']),
+    ...mapState(['allDataItems'])
   }
 }
 </script>
