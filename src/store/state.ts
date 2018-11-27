@@ -1,8 +1,9 @@
-import ApplicationState from '@/types/store'
+import ApplicationState, { CategoricalFacetOption, Indexed, Lookups, Topic } from '@/types/store'
 
 const state: ApplicationState = {
-  dataItems: [],
+  allDataItems: {},
   topics: [],
+  topicTree: [],
   categoricalFacets: {
     collectionPoint: { id: 'collectionPoint', label: '', options: [] },
     ageGroup:  { id: 'ageGroup', label: '', options: [] },
@@ -17,6 +18,13 @@ const state: ApplicationState = {
     collectionPoint: [],
     searchTerm: ''
   },
+  lookups: {
+    collectionPoint: {},
+    ageGroup: {},
+    sexGroup: {},
+    subCohorts: {},
+    topics: {}
+  } as Lookups,
   openTopics: [],
   selectedDataItems: []
 }

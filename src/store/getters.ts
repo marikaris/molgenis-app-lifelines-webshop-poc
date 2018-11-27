@@ -5,37 +5,49 @@ import {
   Identifiable,
   Indexed,
   Lookups,
+  TermGuard,
   Topic,
   TopicNode
 } from '@/types/store'
 import { VueDataItem, VueTopic } from '@/types/vue'
-
-type TermGuard<T> = (x: T | undefined) => x is T
-const isDefined = <T> (x: T) => x !== undefined
-
-const indexer = <T extends Identifiable>(table: Indexed<T>, current: T): Indexed<T> => ({
-  ...table, [current.id]: current
-})
+import { isDefined } from '@/store/helpers'
 
 type DataItemPredicate = (x: DataItem) => boolean
+type Getters = {
+  filteredTopicTree: TopicNode[],
+  topicList: VueTopic[],
+  dataItemEnabled: DataItemPredicate,
+  dataItemSelected: DataItemPredicate,
+  topicDataItems: DataItem[]
+}
+
+const minSearchLength = 3
 
 export default {
-  topicTree: (state: ApplicationState): TopicNode[] => {
-    const isRootTopic = (topic: Topic): boolean => !topic.parentTopicId || topic.parentTopicId === topic.id
-    const toTopicNode = (topic: Topic): TopicNode => ({
-      id: topic.id,
-      label: topic.label,
-      dataItems: topic.dataItems,
-      children: state.topics
-      .filter(child => child.parentTopicId === topic.id)
-      .filter(child => child.id !== topic.id)
-      .map(toTopicNode)
-    })
-    return state.topics
-    .filter(isRootTopic)
-    .map(toTopicNode)
+  filteredTopicTree: (state: ApplicationState): TopicNode[] => {
+    const searchTerm = state.selectedOptions.searchTerm.trim().toLowerCase()
+    const matches = (label: string): boolean => label.toLowerCase().indexOf(searchTerm) >= 0
+
+    const filter = (node: TopicNode): TopicNode | undefined => {
+      if (searchTerm.length < minSearchLength || matches(node.label)) {
+        return node
+      }
+      const filteredChildren: TopicNode[] = node.children
+        .map(filter)
+        .filter(isDefined as TermGuard<TopicNode>)
+      const filteredDataItems: string[] = node.dataItems
+        .map(id => state.allDataItems[id])
+        .filter(isDefined as TermGuard<DataItem>)
+        .filter(dataItem => matches(dataItem.label))
+        .map(dataItem => dataItem.id)
+      if (filteredChildren.length || filteredDataItems.length) {
+        return { ...node, children: filteredChildren, dataItems: filteredDataItems }
+      }
+      return undefined
+    }
+    return state.topicTree.map(filter).filter(isDefined as TermGuard<TopicNode>)
   },
-  topicList: (state: ApplicationState, getters: { topicTree: TopicNode[] }): VueTopic[] => {
+  topicList: (state: ApplicationState, getters: Getters): VueTopic[] => {
     const treeWalker = (previous: VueTopic[], current: TopicNode): VueTopic[] => {
       const currentVueTopic = {
         ...current,
@@ -45,26 +57,8 @@ export default {
       const vueTopics = [...previous, currentVueTopic]
       return currentVueTopic.open ? current.children.reduce(treeWalker, vueTopics) : vueTopics
     }
-    return getters.topicTree.reduce(treeWalker, [] as VueTopic[])
+    return getters.filteredTopicTree.reduce(treeWalker, [] as VueTopic[])
   },
-  lookups: (state: ApplicationState): Lookups => ({
-    collectionPoint: state.categoricalFacets.collectionPoint.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
-    ageGroup: state.categoricalFacets.ageGroup.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
-    sexGroup: state.categoricalFacets.sexGroup.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
-    subCohorts: state.categoricalFacets.subCohorts.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
-    topics: state.topics.reduce(indexer, {} as Indexed<Topic>)
-  }),
-  allDataItems: (state: ApplicationState, getters: { lookups: Lookups }): Indexed<DataItem> =>
-    state.dataItems.map(
-      item => ({
-        ...item,
-        collectionPoints: item.collectionPoints.map(collectionPoint => getters.lookups.collectionPoint[collectionPoint]).filter(isDefined as TermGuard<CategoricalFacetOption>),
-        ageGroups: item.ageGroups.map(ageGroup => getters.lookups.ageGroup[ageGroup]).filter(isDefined as TermGuard<CategoricalFacetOption>),
-        sexGroups: item.sexGroups.map(sexGroup => getters.lookups.sexGroup[sexGroup]).filter(isDefined as TermGuard<CategoricalFacetOption>),
-        subCohorts: item.subCohorts.map(subCohort => getters.lookups.subCohorts[subCohort]).filter(isDefined as TermGuard<CategoricalFacetOption>),
-        topic: [getters.lookups.topics[item.topic]].filter(isDefined as TermGuard<Topic>)[0] // hack!!
-      }))
-    .reduce(indexer, {} as Indexed<DataItem>),
   dataItemEnabled: (state: ApplicationState): DataItemPredicate => {
     const selectedAgeGroups = new Set(state.selectedOptions.ageGroup)
     const selectedCollectionPoints = new Set(state.selectedOptions.collectionPoint)
@@ -80,22 +74,25 @@ export default {
     const selectedDataItems = new Set(state.selectedDataItems)
     return (item: DataItem): boolean => selectedDataItems.has(item.id)
   },
-  topicDataItems: (state: ApplicationState, getters: { allDataItems: Indexed<DataItem>, lookups: Lookups }): DataItem[] => {
+  topicDataItems: (state: ApplicationState): DataItem[] => {
     const topicId = state.selectedOptions.topic
     if (topicId === undefined) {
       return []
     }
-    const selectedTopic = getters.lookups.topics[topicId]
+    const selectedTopic = state.lookups.topics[topicId]
     if (selectedTopic === undefined) {
       return []
     }
+    // TODO: dedupe the search logic
+    const searchTerm = state.selectedOptions.searchTerm.trim().toLowerCase()
+    const matches = (label: string): boolean => label.toLowerCase().indexOf(searchTerm) >= 0
     return selectedTopic.dataItems
-        .map((id: string): (DataItem | undefined) => getters.allDataItems[id])
+        .map((id: string): (DataItem | undefined) => state.allDataItems[id])
         .filter(isDefined as TermGuard<DataItem>)
+        .filter(dataItem => matches(dataItem.label))
   },
-  vueDataItems: (state: ApplicationState, getters: { topicDataItems: DataItem[], dataItemEnabled: DataItemPredicate, dataItemSelected: DataItemPredicate }): VueDataItem[] =>
+  vueDataItems: (state: ApplicationState, getters: Getters): VueDataItem[] =>
     getters.topicDataItems
-    .filter(item => state.selectedOptions.searchTerm ? item.label.toLowerCase().indexOf(state.selectedOptions.searchTerm.toLowerCase()) > -1 : true)
     .map(item => ({
       ...item,
       enabled: getters.dataItemEnabled(item),
@@ -105,7 +102,11 @@ export default {
   selectedSexGroups: (state: ApplicationState): string[] => state.selectedOptions.sexGroup,
   selectedCollectionPoints: (state: ApplicationState): string[] => state.selectedOptions.collectionPoint,
   selectedSubCohorts: (state: ApplicationState): string[] => state.selectedOptions.subCohorts,
-  selectionCount: (state: ApplicationState, getters: { allDataItems: DataItem[], dataItemEnabled: DataItemPredicate, dataItemSelected: DataItemPredicate }): number => {
-    return getters.allDataItems.filter(getters.dataItemEnabled).filter(getters.dataItemSelected).length
+  selectionCount: (state: ApplicationState, getters: Getters): number => {
+    return Object.values(state.allDataItems)
+      .filter(isDefined as TermGuard<DataItem>)
+      .filter(getters.dataItemEnabled)
+      .filter(getters.dataItemSelected)
+      .length
   }
 }

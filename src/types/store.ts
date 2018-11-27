@@ -69,12 +69,16 @@ export type SelectedOptions = {
 }
 
 export interface ApplicationState {
-  dataItems: RawDataItem[]
+  allDataItems: Indexed<DataItem>
   topics: Topic[]
+  topicTree: TopicNode[]
   categoricalFacets: CategoricalFacets
   selectedOptions: SelectedOptions
   selectedDataItems: string[]
   openTopics: string[]
+  lookups: Lookups
 }
 
 export default ApplicationState
+
+export type TermGuard<T> = (x: T | undefined) => x is T
