@@ -67,7 +67,7 @@
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
-    components: {Facet, DataItems, TopicTree, SearchBar},
+    components: { Facet, DataItems, TopicTree, SearchBar },
     props: {
       msg: String
     },
