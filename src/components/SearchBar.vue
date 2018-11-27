@@ -1,16 +1,16 @@
 <template>
-    <b-input-group>
+    <b-input-group class="search-element">
         <b-form-input
                 class="search-bar"
                 type="text"
-                placeholder="Search"
+                placeholder=""
                 v-model="searchTerm"
                 @input="filterItems">
         </b-form-input>
 
         <b-input-group-append>
             <b-btn variant="outline-secondary" class="search-icon" @click="filterItems">
-                <font-awesome-icon icon="search"/>
+                <font-awesome-icon icon="search" size="lg"/>
             </b-btn>
         </b-input-group-append>
     </b-input-group>
@@ -41,14 +41,31 @@
 </script>
 
 <style scoped>
-    .search-icon {
-        color: #495057;
-        border-color: #ced4da;
-        border-style: solid;
-        border-width: 1px 1px 1px 0px;
+    .search-icon, .search-icon:hover, .search-icon:target, .search-icon:active, .search-icon:focus {
+        color: rgb(0, 172, 199)!important;
+        border-style: none!important;
+        background-color: rgb(233, 246, 249)!important;
+        border-radius: 0!important;
     }
 
-    .search-bar {
-        border-width: 1px 0px 1px 1px;
+    .search-bar, .search-bar:hover, .search-bar:focus, .search-bar:active, .search-bar:target {
+        border-style: none!important;
+        background-color: rgb(233, 246, 249)!important;
+        border-radius: 0!important;
+    }
+
+    .search-element {
+        margin: 2px;
+    }
+    .search-element:hover, .search-element:focus-within {
+        border: solid 2px #00ACC7;
+        padding: 0!important;
+        margin: 0!important;
+    }
+
+    .form-control:focus {
+        -webkit-box-shadow: none;
+        box-shadow: none!important;
+        border: none;
     }
 </style>
