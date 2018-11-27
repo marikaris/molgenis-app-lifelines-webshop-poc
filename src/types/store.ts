@@ -1,5 +1,3 @@
-import { VueTopic } from '@/types/vue'
-
 export interface Identifiable {
   id: string
 }
@@ -18,6 +16,16 @@ export interface CategoricalFacets {
   ageGroup: CategoricalFacet
   sexGroup: CategoricalFacet
   subCohorts: CategoricalFacet
+}
+
+export type Indexed<T> = {[index: string]: T | undefined}
+
+export interface Lookups {
+  collectionPoint: Indexed<CategoricalFacetOption>
+  ageGroup: Indexed<CategoricalFacetOption>
+  sexGroup: Indexed<CategoricalFacetOption>
+  subCohorts: Indexed<CategoricalFacetOption>
+  topics: Indexed<Topic>
 }
 
 export interface DataItem extends Identifiable {
