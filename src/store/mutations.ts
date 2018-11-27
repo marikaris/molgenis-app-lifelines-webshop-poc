@@ -22,6 +22,18 @@ const toggle = (list: string[], item: string): void => {
 }
 
 export default {
+  reset (state: ApplicationState) {
+    state.selectedDataItems = []
+    state.selectedOptions = {
+      ageGroup: [],
+      sexGroup: [],
+      subCohorts: [],
+      collectionPoint: [],
+      topic: undefined,
+      searchTerm: ''
+    }
+    state.openTopics = []
+  },
   toggleDataItem (state: ApplicationState, id: string) {
     if (state.selectedDataItems.includes(id)) {
       state.selectedDataItems = state.selectedDataItems.filter(x => x !== id)

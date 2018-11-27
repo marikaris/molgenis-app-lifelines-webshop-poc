@@ -14,7 +14,8 @@
                         <font-awesome-icon icon="save"/>
                         Save
                     </b-button>
-                    <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit">
+                    <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit"
+                              @click.prevent="reset">
                         <font-awesome-icon icon="undo"/>
                         Reset
                     </b-button>
@@ -67,7 +68,7 @@
   import DataItems from '@/components/DataItems.vue'
   import TopicTree from '@/components/TopicTree.vue'
   import SearchBar from '@/components/SearchBar.vue'
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters, mapActions, mapMutations } from 'vuex'
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
@@ -83,7 +84,8 @@
         'getSexGroups',
         'getSubCohorts',
         'getCollectionPoints'
-      ])
+      ]),
+      ...mapMutations(['reset'])
     },
     computed: {
       ...mapGetters(['vueDataItems', 'selectionCount'])
