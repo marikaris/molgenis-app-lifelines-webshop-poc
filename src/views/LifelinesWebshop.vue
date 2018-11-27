@@ -60,7 +60,7 @@
                                 <topic-tree></topic-tree>
                             </b-col>
                             <b-col md="9">
-                                <data-items :dataItems="vueDataItems"></data-items>
+                                <data-items :dataItems="vueDataItems" v-if="vueDataItems.length"></data-items>
                             </b-col>
                         </b-row>
                     </b-col>
