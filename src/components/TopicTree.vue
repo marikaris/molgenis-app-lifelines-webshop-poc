@@ -8,13 +8,17 @@
                            @click="topicClick(topic)">
       <span v-if="topic.children.length">
         <font-awesome-icon class="caret-icon" icon="caret-down" v-if="isOpenTopic(topic)"></font-awesome-icon>
-          <font-awesome-icon class="caret-icon" icon="caret-right" v-else></font-awesome-icon>  {{topic.label}}
+        <font-awesome-icon class="caret-icon" icon="caret-right" v-else></font-awesome-icon>  {{topic.label}}
+          <b-badge class="float-right head-badge" pill>
+            {{countSelectedTopic(topic)}}/{{countItems(topic)}}
+          </b-badge>
       </span>
             <span v-else class="p-1">
         {{topic.label}}
+         <b-badge class="float-right" :variant="getCountColorVariant(topic)" pill>
+           {{countSelectedTopic(topic)}}/{{countItems(topic)}}
+         </b-badge>
       </span>
-            {{countItems(topic, item => dataItemSelected(item) && dataItemEnabled(item))}}/{{countItems(topic)}}
-
         </b-list-group-item>
     </b-list-group>
 </template>
@@ -40,6 +44,14 @@
         return topic.children.reduce(
           (previous, current) => previous + this.countItems(current, itemFilter), 0)
           + topic.dataItems.map(id => this.allDataItems[id]).filter(isDefined).filter(itemFilter).length
+      },
+      countSelectedTopic (topic) {
+        return this.countItems(topic, item => this.dataItemSelected(item) && this.dataItemEnabled(item))
+      },
+      getCountColorVariant (topic) {
+        return this.countSelectedTopic(topic) > 0 ?
+          this.countSelectedTopic(topic) === this.countItems(topic) ?
+            'success' : 'warning' : 'primary'
       }
     },
     computed: {
@@ -52,5 +64,9 @@
     .caret-icon {
         margin-left: -1rem;
         width: 1rem;
+    }
+
+    .head-badge {
+        background-color: #005967;
     }
 </style>
