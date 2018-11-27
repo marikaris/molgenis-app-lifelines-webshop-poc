@@ -84,5 +84,58 @@ export default {
       intersects(state.selectedOptions.sexGroup, item.sexGroups) ||
       intersects(state.selectedOptions.collectionPoint, item.collectionPoints)
     }).length
+  },
+  selectedTree: (state: ApplicationState): any => {
+    return [{
+      id: 'gis_data',
+      label: 'GIS Data',
+      children: [
+        {
+          id: 'air_polution',
+          label: 'Air pollution',
+          children: [
+            {
+              ageGroups: [],
+              sexGroups: [],
+              subCohorts: [],
+              collectionPoints: [],
+              label: 'Start date',
+              description: 'The start date description'
+            },
+            {
+              ageGroups: [],
+              sexGroups: [],
+              subCohorts: [],
+              collectionPoints: [],
+              label: 'End date',
+              description: 'The end date description'
+            }
+          ]
+        },
+        {
+          id: 'noise_exposure',
+          label: 'Noise exposure',
+          children: [
+            {
+              ageGroups: [],
+              sexGroups: [],
+              subCohorts: [],
+              collectionPoints: [],
+              label: 'Hourly road traffic noise estimate 00:00',
+              description: 'description'
+            },
+            {
+              ageGroups: [],
+              sexGroups: [],
+              subCohorts: [],
+              collectionPoints: [],
+              label: 'Hourly road traffic noise estimate 13:00',
+              description: 'description'
+            }
+          ]
+        }
+      ],
+      dataItems: []
+    }]
   }
 }
