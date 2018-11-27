@@ -74,22 +74,14 @@ export default {
     const selectedDataItems = new Set(state.selectedDataItems)
     return (item: DataItem): boolean => selectedDataItems.has(item.id)
   },
-  topicDataItems: (state: ApplicationState): DataItem[] => {
-    const topicId = state.selectedOptions.topic
-    if (topicId === undefined) {
-      return []
-    }
-    const selectedTopic = state.lookups.topics[topicId]
+  topicDataItems: (state: ApplicationState, getters: Getters): DataItem[] => {
+    const selectedTopic: VueTopic | undefined = getters.topicList.find(topic => topic.id === state.selectedOptions.topic)
     if (selectedTopic === undefined) {
       return []
     }
-    // TODO: dedupe the search logic
-    const searchTerm = state.selectedOptions.searchTerm.trim().toLowerCase()
-    const matches = (label: string): boolean => label.toLowerCase().indexOf(searchTerm) >= 0
     return selectedTopic.dataItems
         .map((id: string): (DataItem | undefined) => state.allDataItems[id])
         .filter(isDefined as TermGuard<DataItem>)
-        .filter(dataItem => matches(dataItem.label))
   },
   vueDataItems: (state: ApplicationState, getters: Getters): VueDataItem[] =>
     getters.topicDataItems
