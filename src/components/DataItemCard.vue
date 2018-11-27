@@ -51,18 +51,13 @@
 </script>
 
 <style>
-   button.list-group-item:disabled,
-   button.list-group-item[disabled] {
-    background-color: #cccccc24;
-  }
+    button.list-group-item:disabled span,
+    button.list-group-item[disabled] span {
+        color: rgba(108, 117, 125, 0.5);
+    }
 
-   button.list-group-item:disabled span,
-   button.list-group-item[disabled] span {
-     color: #6c757d;
-   }
-
-   button.list-group-item:disabled svg,
-   button.list-group-item[disabled] svg {
-     color: #6c757d;
-   }
+    button.list-group-item:disabled svg,
+    button.list-group-item[disabled] svg {
+        color: rgba(108, 117, 125, 0.5);
+    }
 </style>
