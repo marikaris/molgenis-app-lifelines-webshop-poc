@@ -1,10 +1,10 @@
 // @ts-ignore
 import api from '@molgenis/molgenis-api-client'
-import { DataItem } from '@/types/store'
+import { RawDataItem } from '@/types/store'
 
 const refToId = (ref: any): string => ref.id
 
-const toDataItem = (item: any): DataItem => {
+const toDataItem = (item: any): RawDataItem => {
   return {
     id: item.id,
     ageGroups: item.ageGroups,
@@ -19,7 +19,7 @@ const toDataItem = (item: any): DataItem => {
 }
 
 export default {
-  getAll (): Promise<DataItem[]> {
+  getAll (): Promise<RawDataItem[]> {
     return api.get('api/v2/lifelines_dataItems?num=10000').then((response: any) => {
       return response.items.map(toDataItem)
     })

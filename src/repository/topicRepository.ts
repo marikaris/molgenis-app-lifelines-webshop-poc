@@ -7,7 +7,8 @@ const refToId = (ref: any): string => ref.id
 const toTopic = (item: any): Topic => {
   const topic: Topic = {
     id: item.id,
-    label: item.label
+    label: item.label,
+    dataItems: item.dataItems.map(refToId)
   }
 
   if (item.parent) {
