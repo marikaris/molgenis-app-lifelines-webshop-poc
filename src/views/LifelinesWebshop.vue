@@ -18,7 +18,11 @@
                         <font-awesome-icon icon="undo"/>
                         Reset
                     </b-button>
-                    <b-button variant="outline-info" class="mr-1 my-2 my-sm-0" type="submit">
+                    <b-button
+                        variant="outline-info"
+                        class="mr-1 my-2 my-sm-0"
+                        type="submit" to="cart"
+                        :disabled="selectionCount < 1">
                         <font-awesome-icon icon="shopping-cart"/>
                         Selected Items <span class="badge badge-info">{{selectionCount}}</span>
                     </b-button>
