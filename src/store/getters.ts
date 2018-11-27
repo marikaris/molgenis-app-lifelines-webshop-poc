@@ -1,11 +1,20 @@
-import { ApplicationState, Identifiable, Topic, TopicNode } from '@/types/store'
+import {
+  ApplicationState,
+  CategoricalFacetOption,
+  Identifiable,
+  Indexed,
+  Lookups,
+  Topic,
+  TopicNode
+} from '@/types/store'
 import { VueDataItem, VueTopic } from '@/types/vue'
 
 type TermGuard<T> = (x: T | undefined) => x is T
+const isDefined = <T> (x: T) => x !== undefined
 
-const lookup = <T extends Identifiable>(ids: string[], options: T[]): T[] =>
-    ids.map(id => (options || []).find(option => option.id === id))
-    .filter((x => x !== undefined) as TermGuard<T>)
+const indexer = <T extends Identifiable>(table: Indexed<T>, current: T): Indexed<T> => ({
+  ...table, [current.id]: current
+})
 
 const intersects = (a: string[], b: string[]): boolean => {
   return a.filter(value => -1 !== b.indexOf(value)).length > 0
@@ -38,17 +47,24 @@ export default {
     }
     return getters.topicTree.reduce(treeWalker, [] as VueTopic[])
   },
-  vueDataItems: (state: ApplicationState): VueDataItem[] =>
+  lookups: (state: ApplicationState): Lookups => ({
+    collectionPoint: state.categoricalFacets.collectionPoint.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
+    ageGroup: state.categoricalFacets.ageGroup.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
+    sexGroup: state.categoricalFacets.sexGroup.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
+    subCohorts: state.categoricalFacets.subCohorts.options.reduce(indexer, {} as Indexed<CategoricalFacetOption>),
+    topics: state.topics.reduce(indexer, {} as Indexed<Topic>)
+  }),
+  vueDataItems: (state: ApplicationState, getters: { lookups: Lookups }): VueDataItem[] =>
     state.dataItems.filter(item => state.selectedOptions.topic === item.topic)
       .filter(
         item => state.selectedOptions.searchTerm ? item.label.toLowerCase().indexOf(state.selectedOptions.searchTerm.toLowerCase()) > -1 : true)
       .map(item => ({
         ...item,
-        collectionPoints: lookup(item.collectionPoints, state.categoricalFacets.collectionPoint.options),
-        ageGroups: lookup(item.ageGroups, state.categoricalFacets.ageGroup.options),
-        subCohorts: lookup(item.subCohorts, state.categoricalFacets.subCohorts.options),
-        sexGroups: lookup(item.sexGroups, state.categoricalFacets.sexGroup.options),
-        topic: lookup([item.topic], state.topics)[0],
+        collectionPoints: item.collectionPoints.map(collectionPoint => getters.lookups.collectionPoint[collectionPoint]).filter(isDefined as TermGuard<CategoricalFacetOption>),
+        ageGroups: item.ageGroups.map(ageGroup => getters.lookups.ageGroup[ageGroup]).filter(isDefined as TermGuard<CategoricalFacetOption>),
+        sexGroups: item.sexGroups.map(sexGroup => getters.lookups.sexGroup[sexGroup]).filter(isDefined as TermGuard<CategoricalFacetOption>),
+        subCohorts: item.subCohorts.map(subCohort => getters.lookups.subCohorts[subCohort]).filter(isDefined as TermGuard<CategoricalFacetOption>),
+        topic: [getters.lookups.topics[item.topic]].filter(isDefined as TermGuard<Topic>)[0], // hack!!
         selected: state.selectedDataItems.includes(item.id),
         enabled: intersects(state.selectedOptions.subCohorts, item.subCohorts) ||
         intersects(state.selectedOptions.ageGroup, item.ageGroups) ||
