@@ -1,5 +1,5 @@
 <template>
-    <b-button :variant="variant" :active="active" @click="$emit('facetToggled')">{{label}}</b-button>
+    <b-button :variant="variant" :active="active" @click="$emit('facetToggled')" size="sm">{{label}}</b-button>
 </template>
 
 <script>
@@ -27,6 +27,6 @@
 <style scoped>
     button {
         margin: 0.2rem;
-        min-width: 8rem;
+        min-width: 4rem;
     }
 </style>
