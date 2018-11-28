@@ -101,57 +101,20 @@ export default {
       .filter(getters.dataItemSelected)
       .length
   },
-  selectedTree: (state: ApplicationState): any => {
-    return [{
-      id: 'gis_data',
-      label: 'GIS Data',
-      children: [
-        {
-          id: 'air_polution',
-          label: 'Air pollution',
-          children: [
-            {
-              ageGroups: [],
-              sexGroups: [],
-              subCohorts: [],
-              collectionPoints: [],
-              label: 'Start date',
-              description: 'The start date description'
-            },
-            {
-              ageGroups: [],
-              sexGroups: [],
-              subCohorts: [],
-              collectionPoints: [],
-              label: 'End date',
-              description: 'The end date description'
-            }
-          ]
-        },
-        {
-          id: 'noise_exposure',
-          label: 'Noise exposure',
-          children: [
-            {
-              ageGroups: [],
-              sexGroups: [],
-              subCohorts: [],
-              collectionPoints: [],
-              label: 'Hourly road traffic noise estimate 00:00',
-              description: 'description'
-            },
-            {
-              ageGroups: [],
-              sexGroups: [],
-              subCohorts: [],
-              collectionPoints: [],
-              label: 'Hourly road traffic noise estimate 13:00',
-              description: 'description'
-            }
-          ]
-        }
-      ],
-      dataItems: []
-    }]
+  selectedTree: (state: ApplicationState, getters: Getters): any => {
+    const filter = (node: TopicNode): any | undefined => {
+      const filteredChildren: TopicNode[] = node.children
+      .map(filter)
+      .filter(isDefined as TermGuard<TopicNode>)
+      const filteredDataItems: DataItem[] = node.dataItems
+      .map(id => state.allDataItems[id])
+      .filter(isDefined as TermGuard<DataItem>)
+      .filter(dataItem => getters.dataItemSelected(dataItem))
+      if (filteredChildren.length || filteredDataItems.length) {
+        return { ...node, children: [...filteredChildren, ...filteredDataItems] }
+      }
+      return undefined
+    }
+    return state.topicTree.map(filter).filter(isDefined as TermGuard<any>)
   }
 }
