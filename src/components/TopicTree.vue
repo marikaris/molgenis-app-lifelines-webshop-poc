@@ -9,13 +9,14 @@
       <span v-if="topic.children.length">
         <font-awesome-icon class="caret-icon" icon="caret-down" v-if="isOpenTopic(topic)"></font-awesome-icon>
         <font-awesome-icon class="caret-icon" icon="caret-right" v-else></font-awesome-icon>  {{topic.label}}
-          <b-badge class="float-right head-badge" pill>
+          <b-badge :class="countSelectedTopic(topic) === 0 ? 'float-right head-badge' : 'float-right head-badge-selected'" pill>
             {{countSelectedTopic(topic)}}/{{countItems(topic)}}
           </b-badge>
       </span>
             <span v-else class="p-1">
         {{topic.label}}
-         <b-badge class="float-right" :variant="getCountColorVariant(topic)" pill>
+         <b-badge :class="countSelectedTopic(topic) === 0 ? 'float-right deselected-badge' : 'float-right'"
+                  :variant="getCountColorVariant(topic)" pill>
            {{countSelectedTopic(topic)}}/{{countItems(topic)}}
          </b-badge>
       </span>
@@ -51,7 +52,7 @@
       getCountColorVariant (topic) {
         return this.countSelectedTopic(topic) > 0 ?
           this.countSelectedTopic(topic) === this.countItems(topic) ?
-            'success' : 'warning' : 'primary'
+            'success' : 'warning' : 'light'
       }
     },
     computed: {
@@ -66,7 +67,16 @@
         width: 1rem;
     }
 
+    .deselected-badge {
+        color: #276daa;
+    }
+
     .head-badge {
+        color: #005967;
+        background-color: inherit;
+    }
+
+    .head-badge-selected {
         background-color: #005967;
     }
 </style>
