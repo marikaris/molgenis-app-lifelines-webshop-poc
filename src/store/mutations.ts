@@ -22,6 +22,18 @@ const toggle = (list: string[], item: string): void => {
 }
 
 export default {
+  reset (state: ApplicationState) {
+    state.selectedDataItems = []
+    state.selectedOptions = {
+      ageGroup: [],
+      sexGroup: [],
+      subCohorts: [],
+      collectionPoint: [],
+      topic: undefined,
+      searchTerm: ''
+    }
+    state.openTopics = []
+  },
   selectAll (state: ApplicationState) {
     const topicId = state.selectedOptions.topic
     if (topicId === undefined) {
