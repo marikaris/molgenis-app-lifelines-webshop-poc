@@ -2,13 +2,13 @@
     <b-container fluid class="mt-2">
 
         <b-row class="pt-2">
-            <b-col md="3">
+            <b-col md="2">
                 <h3 class="nav-title font-weight-bold">Filter items</h3>
             </b-col>
             <b-col md="3">
                 <h3 class="nav-title font-weight-bold">Data items</h3>
             </b-col>
-            <b-col md="6">
+            <b-col md="7">
                 <div class="float-right">
                     <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit">
                         <font-awesome-icon icon="save"/>
@@ -33,7 +33,7 @@
         </b-row>
 
         <b-row class="mt-2">
-            <b-col md="3">
+            <b-col md="2">
                 <b-row>
                     <b-col>
                         <FacetContainer title="Population" :facets="[this.$store.state.categoricalFacets.ageGroup,
@@ -48,7 +48,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col md="9">
+            <b-col md="10">
                 <b-row>
                     <b-col>
                         <b-row>

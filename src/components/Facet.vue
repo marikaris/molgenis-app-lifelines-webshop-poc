@@ -2,9 +2,9 @@
     <div class="facet mb-3">
         <b-row>
             <b-col>
-                <h4 class="text-capitalize">{{this.categoricalFacet.label}} <small v-if="this.categoricalFacet.description">
+                <h6 class="text-capitalize">{{this.categoricalFacet.label}} <small v-if="this.categoricalFacet.description">
                     <font-awesome-icon icon="question-circle"/></small>
-                </h4>
+                </h6>
             </b-col>
         </b-row>
         <b-row>
@@ -81,7 +81,7 @@
   }
 </script>
 <style scoped>
-    h4 {
+    h6 {
         color: #00ACC7;
     }
 </style>
