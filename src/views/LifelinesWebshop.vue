@@ -17,7 +17,7 @@
                     <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit"
                               @click.prevent="reset">
                         <font-awesome-icon icon="undo"/>
-                        Reset
+                        Reset all
                     </b-button>
                     <b-button
                             variant="outline-info"
@@ -61,7 +61,7 @@
                                 <topic-tree></topic-tree>
                             </b-col>
                             <b-col md="9">
-                                <data-items :dataItems="vueDataItems"></data-items>
+                                <data-items :dataItems="vueDataItems" v-if="vueDataItems.length"></data-items>
                             </b-col>
                         </b-row>
                     </b-col>

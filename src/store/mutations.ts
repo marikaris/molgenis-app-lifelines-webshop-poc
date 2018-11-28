@@ -34,6 +34,23 @@ export default {
     }
     state.openTopics = []
   },
+  selectAll (state: ApplicationState) {
+    const topicId = state.selectedOptions.topic
+    if (topicId === undefined) {
+      return
+    }
+    const topic = state.lookups.topics[topicId]
+    if (topic === undefined) {
+      return
+    }
+    const union = new Set([...state.selectedDataItems, ...topic.dataItems])
+    if (union.size > state.selectedDataItems.length) {
+      state.selectedDataItems =  Array.from(union)
+    } else {
+      const topicItems = new Set(topic.dataItems)
+      state.selectedDataItems = state.selectedDataItems.filter(x => !topicItems.has(x))
+    }
+  },
   toggleDataItem (state: ApplicationState, id: string) {
     if (state.selectedDataItems.includes(id)) {
       state.selectedDataItems = state.selectedDataItems.filter(x => x !== id)
