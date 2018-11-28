@@ -2,21 +2,22 @@
     <b-container fluid class="mt-2">
 
         <b-row class="pt-2">
-            <b-col md="3">
+            <b-col md="2">
                 <h3 class="nav-title font-weight-bold">Filter items</h3>
             </b-col>
             <b-col md="3">
                 <h3 class="nav-title font-weight-bold">Data items</h3>
             </b-col>
-            <b-col md="6">
+            <b-col md="7">
                 <div class="float-right">
                     <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit">
                         <font-awesome-icon icon="save"/>
                         Save
                     </b-button>
-                    <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit">
+                    <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit"
+                              @click.prevent="reset">
                         <font-awesome-icon icon="undo"/>
-                        Reset
+                        Reset all
                     </b-button>
                     <b-button
                             variant="outline-info"
@@ -32,7 +33,7 @@
         </b-row>
 
         <b-row class="mt-2">
-            <b-col md="3">
+            <b-col md="2">
                 <b-row>
                     <b-col>
                         <FacetContainer title="Population" :facets="[this.$store.state.categoricalFacets.ageGroup,
@@ -47,7 +48,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col md="9">
+            <b-col md="10">
                 <b-row>
                     <b-col>
                         <b-row>
@@ -60,7 +61,7 @@
                                 <topic-tree></topic-tree>
                             </b-col>
                             <b-col md="9">
-                                <data-items :dataItems="vueDataItems"></data-items>
+                                <data-items :dataItems="vueDataItems" v-if="vueDataItems.length"></data-items>
                             </b-col>
                         </b-row>
                     </b-col>
@@ -76,7 +77,7 @@
   import DataItems from '@/components/DataItems.vue'
   import TopicTree from '@/components/TopicTree.vue'
   import SearchBar from '@/components/SearchBar.vue'
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters, mapActions, mapMutations } from 'vuex'
 
   export default Vue.extend({
     name: 'LifelinesWebshop',
@@ -92,7 +93,8 @@
         'getSexGroups',
         'getSubCohorts',
         'getCollectionPoints'
-      ])
+      ]),
+      ...mapMutations(['reset'])
     },
     computed: {
       ...mapGetters(['vueDataItems', 'selectionCount'])
