@@ -26,8 +26,8 @@ export default Vue.extend({
     ...mapMutations(['toggleDataItem', 'selectAll'])
   },
   computed: {
-    allSelected () {
-      return this.dataItems.every(item => item.enabled && item.selected)
+    allSelected (): boolean {
+      return this.dataItems.every((item: VueDataItem): boolean => item.enabled && item.selected)
     }
   },
   components: { DataItemCard }

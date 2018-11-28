@@ -33,7 +33,7 @@ export default {
     }
     const union = new Set([...state.selectedDataItems, ...topic.dataItems])
     if (union.size > state.selectedDataItems.length) {
-      state.selectedDataItems =  Array.from(union)
+      state.selectedDataItems = Array.from(union)
     } else {
       const topicItems = new Set(topic.dataItems)
       state.selectedDataItems = state.selectedDataItems.filter(x => !topicItems.has(x))
