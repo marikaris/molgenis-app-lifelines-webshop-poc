@@ -116,5 +116,5 @@ export default {
       return undefined
     }
     return state.topicTree.map(filter).filter(isDefined as TermGuard<any>)
-  }
-}
+  },
+  searchTerm:  (state: ApplicationState): string => state.selectedOptions.searchTerm

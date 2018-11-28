@@ -1,14 +1,17 @@
 <template>
     <b-container fluid class="mt-2">
 
-        <b-row class="pt-2">
+        <b-row class="pt-2" align-h="between">
             <b-col md="2">
                 <h3 class="nav-title font-weight-bold">Filter items</h3>
             </b-col>
-            <b-col md="3">
+            <b-col md="2">
                 <h3 class="nav-title font-weight-bold">Data items</h3>
             </b-col>
-            <b-col md="7">
+            <b-col md="4">
+                <SearchBar></SearchBar>
+            </b-col>
+            <b-col md="4">
                 <div class="float-right">
                     <b-button variant="outline-secondary" class="mr-1 my-2 my-sm-0" type="submit">
                         <font-awesome-icon icon="save"/>
@@ -32,7 +35,7 @@
 
         </b-row>
 
-        <b-row class="mt-2">
+        <b-row class="mt-4">
             <b-col md="2">
                 <b-row>
                     <b-col>
@@ -52,11 +55,6 @@
                 <b-row>
                     <b-col>
                         <b-row>
-                            <b-col>
-                                <SearchBar elementsToFilter="data-item-card"></SearchBar>
-                            </b-col>
-                        </b-row>
-                        <b-row class="mt-2">
                             <b-col md="3">
                                 <topic-tree></topic-tree>
                             </b-col>
