@@ -2,19 +2,30 @@
     <div class="facet mb-3">
         <b-row>
             <b-col>
-                <h6 class="text-capitalize">{{this.categoricalFacet.label}} <small v-if="this.categoricalFacet.description">
-                    <font-awesome-icon icon="question-circle"/></small>
+                <h6 class="text-capitalize">{{this.categoricalFacet.label}}
+                    <span v-if="this.categoricalFacet.description">
+                        <b-btn :id="this.categoricalFacet.id+'-popover'" variant="link">
+                            <font-awesome-icon icon="question-circle"/>
+                        </b-btn>
+
+                        <b-popover :target="this.categoricalFacet.id+'-popover'"
+                                   :title="this.categoricalFacet.label"
+                                   :content="this.categoricalFacet.description"
+                                   class="help-popover"
+                                   triggers="hover focus">
+                        </b-popover>
+                    </span>
                 </h6>
             </b-col>
         </b-row>
         <b-row>
             <b-col>
                 <FacetOption
-                    :key="option.id"
-                    :label="option.label"
-                    :active="isActive(option.id)"
-                    v-for="option in this.categoricalFacet.options"
-                    @facetToggled="facetToggled(option.id)">
+                        :key="option.id"
+                        :label="option.label"
+                        :active="isActive(option.id)"
+                        v-for="option in this.categoricalFacet.options"
+                        @facetToggled="facetToggled(option.id)">
                 </FacetOption>
             </b-col>
         </b-row>

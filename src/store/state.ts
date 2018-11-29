@@ -5,10 +5,10 @@ const state: ApplicationState = {
   topics: [],
   topicTree: [],
   categoricalFacets: {
-    collectionPoint: { id: 'collectionPoint', label: '', options: [] },
-    ageGroup:  { id: 'ageGroup', label: '', options: [] },
-    sexGroup:  { id: 'sexGroup', label: '', options: [] },
-    subCohorts:  { id: 'subCohorts', label: '', options: [] }
+    collectionPoint: { id: 'collectionPoint', label: '', options: [], description: '' },
+    ageGroup:  { id: 'ageGroup', label: '', options: [], description: '' },
+    sexGroup:  { id: 'sexGroup', label: '', options: [], description: '' },
+    subCohorts:  { id: 'subCohorts', label: '', options: [], description: '' }
   },
   selectedOptions: {
     ageGroup: [],

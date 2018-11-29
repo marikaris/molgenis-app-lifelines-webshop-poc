@@ -13,7 +13,8 @@ const toCategoricalFacet = (response: any, id: string): CategoricalFacet => {
   return {
     id,
     label: response.meta.label,
-    options: response.items.map(toCategoricalFacetOption)
+    options: response.items.map(toCategoricalFacetOption),
+    description: response.meta.description
   }
 }
 
