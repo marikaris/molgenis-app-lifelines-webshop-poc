@@ -1,6 +1,6 @@
 <template>
     <b-card :header="this.title ? this.title : ''" bg-variant="default">
-        <Facet v-for="facet in this.facets" :categoricalFacet="facet"></Facet>
+        <Facet v-for="facet in this.facets" :categoricalFacet="facet" :key="facet.id"></Facet>
     </b-card>
 </template>
 

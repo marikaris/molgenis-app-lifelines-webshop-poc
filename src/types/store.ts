@@ -8,7 +8,8 @@ export interface CategoricalFacetOption extends Identifiable {
 
 export interface CategoricalFacet extends Identifiable {
   label: string
-  options: CategoricalFacetOption[]
+  options: CategoricalFacetOption[],
+  description: string
 }
 
 export interface CategoricalFacets {
@@ -18,7 +19,7 @@ export interface CategoricalFacets {
   subCohorts: CategoricalFacet
 }
 
-export type Indexed<T> = {[index: string]: T | undefined}
+export type Indexed<T> = { [index: string]: T | undefined }
 
 export interface Lookups {
   collectionPoint: Indexed<CategoricalFacetOption>
